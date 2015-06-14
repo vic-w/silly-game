@@ -4,7 +4,7 @@ include_once("sql.php");
 
 class Database
 {
-    function create_table_access_keys($wechat_app_id, $wechat_app_secret, $server_access_token)
+    function create_table_access_keys($wechat_app_id, $wechat_app_secret, $wechat_encoding_aes_key, $server_access_token)
     {
         $db = MYSQL_CONNECT_V();
     
@@ -14,6 +14,7 @@ class Database
             `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
             `wechat_app_id` TEXT NOT NULL ,
             `wechat_app_secret` TEXT NOT NULL ,
+            `wechat_encoding_aes_key` TEXT NOT NULL ,
             `wechat_access_token` TEXT NOT NULL,
             `wechat_access_token_expire_time` INT NOT NULL,
             `server_access_token` TEXT NOT NULL
@@ -27,6 +28,7 @@ class Database
             `id` ,
             `wechat_app_id` ,
             `wechat_app_secret` ,
+            `wechat_encoding_aes_key`,
             `wechat_access_token` ,
             `wechat_access_token_expire_time`,
             `server_access_token`
@@ -36,6 +38,7 @@ class Database
             1 ,  
             '$wechat_app_id',  
             '$wechat_app_secret',  
+            '$wechat_encoding_aes_key',
             '',  
             0,
             '$server_access_token'
@@ -77,6 +80,14 @@ class Database
         $db = MYSQL_CONNECT_V();
         $result = MYSQL_QUERY_RD_V($sql, $db);
         return $result[0][wechat_app_secret];
+    }
+    
+    function get_wechat_encoding_aes_key()
+    {
+        $sql = "SELECT `wechat_encoding_aes_key` FROM `access_keys` WHERE `id` =1";
+        $db = MYSQL_CONNECT_V();
+        $result = MYSQL_QUERY_RD_V($sql, $db);
+        return $result[0][wechat_encoding_aes_key];
     }
     
     function get_server_access_token()
