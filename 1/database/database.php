@@ -78,23 +78,15 @@ class Database
         $result = MYSQL_QUERY_RD_V($sql, $db);
         return $result[0][wechat_app_secret];
     }
+    
+    function get_server_access_token()
+    {
+        $sql = "SELECT `server_access_token` FROM `access_keys` WHERE `id` =1";
+        $db = MYSQL_CONNECT_V();
+        $result = MYSQL_QUERY_RD_V($sql, $db);
+        return $result[0][server_access_token];
+    }
         
 }
 
 ?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

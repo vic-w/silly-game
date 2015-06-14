@@ -6,7 +6,7 @@
 //define your token
 define("TOKEN", "moneyhell");
 $wechatObj = new wechatCallbackapiTest();
-$wechatObj->responseMsg();
+$wechatObj->valid();
 
 class wechatCallbackapiTest
 {
